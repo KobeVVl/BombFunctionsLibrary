@@ -5,9 +5,23 @@
 #define NL 1
 #define AMOUNT_LANGUAGES 2
 #define AMOUNT_MODES 3
+#define AMOUNT_SETTINGS 4
 
 const String languages[AMOUNT_LANGUAGES] = {"ENGLISH", "NEDERLANDS"};
 const String shortLanguages[AMOUNT_LANGUAGES] = {"EN", "NL"};
+const String settings[AMOUNT_SETTINGS][AMOUNT_LANGUAGES] = {
+    {// 0
+     "LANGUAGE       ",
+     "TAAL           "},
+    {// 1
+     "Calibrate btns.",
+     "Kalibreer knop "},
+    {// 2
+     "Calibrate wires",
+     "Kalibreer draad"},
+    {// 3
+     "Turn off       ",
+     "Zet uit        "}};
 
 const String modes[AMOUNT_MODES][AMOUNT_LANGUAGES] = {
     {// 0
