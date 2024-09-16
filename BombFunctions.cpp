@@ -618,6 +618,7 @@ int writePresetToEEPROM(int address, Preset &preset)
   str = preset.toStruct();
   if (DEBUG)
   {
+    Serial.println("------------ WRITE PRESET ------------");
     Serial.println("Structure:");
     Serial.print("\tBanana: ");
     Serial.println(str.bananaConfig);
@@ -631,6 +632,7 @@ int writePresetToEEPROM(int address, Preset &preset)
     Serial.println(str.plantTime);
     Serial.print("\tTime: ");
     Serial.println(str.time);
+    Serial.println("-------------------------------------");
   }
   EEPROM.put(address, str);
   address += sizeof(str);
@@ -646,14 +648,15 @@ int writePresetToEEPROM(int address, Preset &preset)
  * @param preset Preset pointer waar preset in wordt gezet
  * @return int Eind adress na read
  */
-int readPresetFromEEPROM(int address, Preset *preset)
+void readPresetFromEEPROM(int *addr, Preset *preset)
 {
   PresetStruct str;
   String code;
   String plantCode;
-  EEPROM.get(address, str);
+  EEPROM.get(*addr, str);
   if (DEBUG)
   {
+    Serial.println("------------ READ PRESET ------------");
     Serial.println("Structure:");
     Serial.print("\tBanana: ");
     Serial.println(str.bananaConfig);
@@ -667,18 +670,19 @@ int readPresetFromEEPROM(int address, Preset *preset)
     Serial.println(str.plantTime);
     Serial.print("\tTime: ");
     Serial.println(str.time);
+    Serial.println("-------------------------------------");
   }
-  address += sizeof(str);
-  address = readStringFromEEPROM(address, &code);
-  address = readStringFromEEPROM(address, &plantCode);
-  Preset pre(str, code, plantCode);
+  *addr += sizeof(str);
+  *addr = readStringFromEEPROM(*addr, &code);
+  *addr = readStringFromEEPROM(*addr, &plantCode);
+  Preset pre(&str, code, plantCode);
   *preset = pre;
   if (DEBUG)
   {
     Serial.println("read preset");
     (*preset).print();
   }
-  return address - sizeof(preset);
+  *addr -= sizeof(preset);
 }
 
 int writeStringToEEPROM(int addrOffset, const String &strToWrite)
@@ -719,14 +723,14 @@ void serialDebugCode(char &charac, String &enteredCode, uint8_t &codeIndex, bool
   }
 }
 
-void serialDebugPressed(uint8_t &number, bool &pressed)
+void serialDebugPressed(uint8_t &number, unsigned long &turnOffTime)
 {
   if (DEBUG)
   {
     Serial.print("number: ");
     Serial.println(number);
-    Serial.print("pressed: ");
-    Serial.println(pressed);
+    Serial.print("turnOfTime: ");
+    Serial.println(turnOffTime);
   }
 }
 

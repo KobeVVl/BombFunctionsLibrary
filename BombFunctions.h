@@ -1,7 +1,7 @@
 #ifndef BOMBFUNCTIONS_H
 #define BOMBFUNCTIONS_H
 
-#define DEBUG 0
+#define DEBUG 1
 #define BANANA_DEBUG 0
 
 #define LCD "lcd"
@@ -54,13 +54,13 @@ void controlRedLed(int value);
 int punishment(int time);
 
 int writePresetToEEPROM(int address, Preset &preset);
-int readPresetFromEEPROM(int address, Preset *preset);
+void readPresetFromEEPROM(int *address, Preset *preset);
 
 int writeStringToEEPROM(int addrOffset, const String &strToWrite);
 int readStringFromEEPROM(int addrOffset, String *strToRead);
 
 void serialDebugCode(char &charac, String &enteredCode, uint8_t &codeIndex, bool &pressed);
-void serialDebugPressed(uint8_t &number, bool &pressed);
+void serialDebugPressed(uint8_t &number, unsigned long &turnOffTime);
 void serialDebugMain(String &trueCode, uint8_t &trueBanana, uint8_t trueWire, unsigned int &totalTime, bool codeDone, bool wireDone, bool bananaDone, bool questionsDone);
 
 #endif
