@@ -735,15 +735,16 @@ void serialDebugMain(String &trueCode, uint8_t &trueBanana, uint8_t trueWire, un
   if (DEBUG)
   {
     Serial.println();
+    Serial.println("------------ DEBUG MAIN ------------");
     Serial.print("Started loop with:\n  - code: ");
     Serial.print(trueCode);
     Serial.print(",\n  - banana config: ");
-    Serial.print(trueBanana);
+    Serial.print((trueBanana == 255) ? "/" : String(trueBanana));
     Serial.print(",\n  - wire: ");
-    Serial.print(wireKeys[trueWire]);
+    Serial.print((trueWire == 255) ? "/" : String(trueWire));
     Serial.print(",\nTime to defuse the bomb: ");
     Serial.print(totalTime);
-    Serial.println(" seconds.");
+    Serial.println(" seconds");
     Serial.print("Code: ");
     Serial.println(codeDone ? "Done" : "Not done");
     Serial.print("Wire: ");
@@ -752,5 +753,7 @@ void serialDebugMain(String &trueCode, uint8_t &trueBanana, uint8_t trueWire, un
     Serial.println(bananaDone ? "Done" : "Not done");
     Serial.print("Questions: ");
     Serial.println(questionsDone ? "Done" : "Not done");
+    Serial.println("------------------------------------");
+    Serial.println();
   }
 }

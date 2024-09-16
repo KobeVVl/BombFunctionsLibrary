@@ -1,7 +1,7 @@
 #ifndef BOMBFUNCTIONS_H
 #define BOMBFUNCTIONS_H
 
-#define DEBUG 1
+#define DEBUG 0
 #define BANANA_DEBUG 0
 
 #define LCD "lcd"
